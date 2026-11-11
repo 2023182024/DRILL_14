@@ -3,8 +3,10 @@ import game_world
 import game_framework
 from boy import Boy
 from grass import Grass
+from bird import Bird
 
 boy = None
+bird = None
 
 
 def handle_events():
@@ -22,10 +24,13 @@ def handle_events():
 
 
 def init():
-    global boy
+    global boy, bird
 
     boy = Boy()
     game_world.add_oject(boy)
+
+    bird = Bird()
+    game_world.add_oject(bird)
 
     grass = Grass()
     game_world.add_oject(grass, 0)
@@ -40,9 +45,10 @@ def resume():
 
 
 def finish():
-    global boy
+    global boy, bird
     game_world.clear()
     boy = None
+    bird = None
 
 
 def update():
