@@ -1,3 +1,5 @@
+import random
+
 from pico2d import get_canvas_width, load_image
 
 import game_framework
@@ -6,12 +8,17 @@ import game_framework
 class Bird:
     FRAME_WIDTH = 180
     FRAME_HEIGHT = 150
+    DRAW_WIDTH = 100
+    DRAW_HEIGHT = 83
     FRAME_COUNT = 14
     FRAME_PER_SECOND = 10
     SPEED = 180
 
     def __init__(self):
-        self.x = self.FRAME_WIDTH // 2
+        self.x = random.randint(
+            self.DRAW_WIDTH // 2,
+            get_canvas_width() - self.DRAW_WIDTH // 2,
+        )
         self.y = 400
         self.frame = 0
         self.direction = 1
@@ -20,7 +27,7 @@ class Bird:
     def update(self):
         self.x += self.direction * self.SPEED * game_framework.frame_time
 
-        left = self.FRAME_WIDTH // 2
+        left = self.DRAW_WIDTH // 2
         right = get_canvas_width() - left
         if self.x >= right:
             self.x = right
@@ -46,6 +53,6 @@ class Bird:
             flip,
             self.x,
             self.y,
-            self.FRAME_WIDTH,
-            self.FRAME_HEIGHT,
+            self.DRAW_WIDTH,
+            self.DRAW_HEIGHT,
         )
