@@ -11,8 +11,18 @@ class Bird:
     DRAW_WIDTH = 100
     DRAW_HEIGHT = 83
     FRAME_COUNT = 14
-    FRAME_PER_SECOND = 10
-    SPEED = 180
+
+    # In-game scale: 10 pixels represent 0.3 meters.
+    PIXEL_PER_METER = 10.0 / 0.3
+    SPEED_KMPH = 36.0
+    SPEED_MPS = SPEED_KMPH * 1000.0 / 3600.0
+    SPEED = SPEED_MPS * PIXEL_PER_METER
+
+    DISTANCE_PER_FLAP_M = 0.925
+    DISTANCE_PER_FLAP = DISTANCE_PER_FLAP_M * PIXEL_PER_METER
+    FLAPS_PER_SECOND = SPEED_MPS / DISTANCE_PER_FLAP_M
+    # The complete 14-frame animation represents one wing flap.
+    FRAME_PER_SECOND = FLAPS_PER_SECOND * FRAME_COUNT
 
     def __init__(self):
         self.x = random.randint(
